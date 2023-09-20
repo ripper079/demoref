@@ -3,12 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/vue@3.0.2"></script>
     <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
 </head>
 <body>
     <h1>Hello Vue</h1>
+    <!-- The below section is now controlled by vue as specified in  mount point -->
+    <div id="app">
+        <h3>I am the template now if none is specified in createApp</h3>
+        <p>Dynamic data retrieved now!!! The author {{ author }} wrote {{ title }} when he was {{ age }} years old</p>
+        <!-- The v-if directive actually takes out the div from the DOM if it is false-->
+        <div v-if="showAliasAuthor">
+            <p>The secret alias of the autor is= {{ authorAliasName }}</p>
+        </div>    
 
-    <script src="app.js"></script>
+        <!-- Register events with  'directive' v-on   . Many directive exists to do different things. In this case click event-->
+        <!--  Two ways of actually achieving this-->
+        <button v-on:click="age++">Increase the age</button> <!-- Alt 1 -  Inside the click event is actually javascript code -->
+            <!-- <button @click="age++">Increase the age</button> --> <!-- This is actually a shortcode for the previous code statement-->
+        <button v-on:click="addOneYear">Decrease the age </button> <!-- Alt 2  - Or through a function registrered in createApp . PS Its actually NOT a function call, it only register a callback to the function. NO PARENTHESES -->
+        <button v-on:click="resetYear">Reset Age</button>
+        
+        <br><br>
+        <button @click="changeAuthor('Daniel Oikarainen')">Set Daniel to new Author</button>
+        <!-- Databinding  -->
+        <!-- <input type="text" placeholder="Set New Title" name="input-new-name" />
+        <button v-on:click="changeTitle($input-new-name)">Set new Author</button> -->
+
+        <button @click="toogleShowAliasName">
+            <span v-if="showAliasAuthor">Hide Alias Name</span>
+            <span v-else>Show Alias Name</span>
+        </button>
+
+        <!-- Leaves the div in the DOM regardless -->
+        <div v-show="showAliasAuthor">Currently showing author</div>
+    </div>
+
+    <h2>Here the vue in NOT controlling</h2>
+
+    <script src="app.js"></script>    
 </body>
 </html>
